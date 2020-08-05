@@ -16,7 +16,7 @@ def ingest(store_name, file_name, name, silent):
 
     new_name = name or os.path.basename(file_name)
 
-    if name is None and silent is False:
+    if name is None and not silent:
         if not click.confirm(
             'Is the name {} okay for this option?'.format(
                 click.style(
