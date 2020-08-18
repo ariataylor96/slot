@@ -15,6 +15,7 @@ python-box = "^5.1.0"
 use-dir = "^0.1.4"
 colorama = "^0.4.3"
 "ruamel.yaml" = "^0.16.10"
+hy = "^0.19.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

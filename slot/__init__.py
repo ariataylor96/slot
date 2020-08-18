@@ -1,3 +1,6 @@
+# Used for compatibility
+import hy  # noqa
+
 from importlib_metadata import version
 from os import makedirs
 
