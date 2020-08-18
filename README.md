@@ -2,6 +2,8 @@
 
 Rotates a symlink between multiple different possible options.
 
+Powered by [Hy](https://pypi.org/project/hy/), a Lisp dialect with full Python interop.
+
 ## Installation
 
 ```bash
