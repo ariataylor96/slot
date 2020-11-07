@@ -34,17 +34,25 @@
 
   (with-decorator
     property
+    (defn target-exists [self] (os.path.exists self.target)))
+
+  (with-decorator
+    property
     (defn selected-option [self]
-      (os.path.basename (os.readlink self.target))))
+      (if self.registered
+          (os.path.basename (os.readlink self.target))
+          None)))
 
   (defn select [self option]
-    (unless self.registered
+    (unless self.exists
       (raise (NotRegisteredError (.format "{} is not registered" self.name))))
 
     (unless (in option self.options)
       (raise (InvalidOptionError)))
 
-    (.unlink os self.target)
+    (if self.target-exists
+        (.unlink os self.target))
+
     (.symlink
       os
       (os.path.join self.path option)
