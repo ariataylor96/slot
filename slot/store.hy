@@ -13,10 +13,14 @@
   (defn --init-- [self name]
     (setv self.name name)
     (setv self.path (os.path.join STORES-DIR name))
+    (setv self.post-exec None)
 
     (setv config (Config))
     (if (in name (.keys config.stores))
-        (setv self.target (. config stores [name] target))))
+        (do
+          (setv self.target (. config stores [name] target))
+          (if (in "post-exec" (.keys (. config stores [name])))
+              (setv self.post-exec (. config stores [name] post-exec))))))
 
   (with-decorator
     property
@@ -56,7 +60,10 @@
     (.symlink
       os
       (os.path.join self.path option)
-      self.target))
+      self.target)
+
+    (if self.post-exec
+        (os.system (os.path.expanduser self.post-exec))))
 
   (defn ingest [self new-name &optional file-name link]
     (setv target self.target)
